@@ -1,67 +1,45 @@
 import IVehicle from '../Interfaces/IVehicle';
 
 export default class Vehicle {
-  private _id?: string;
-  private _model: string;
-  private _year: number;
-  private _color: string;
-  private _status?: boolean;
-  private _buyValue: number;
-
-  constructor(vehicle: IVehicle) {
-    this._id = vehicle.id;
-    this._model = vehicle.model;
-    this._year = vehicle.year;
-    this._color = vehicle.color;
-    this._status = vehicle.status || false;
-    this._buyValue = vehicle.buyValue;
-  }
-
-  public setId(id: string) {
-    this._id = id;
+  protected id: string | undefined;
+  protected model: string;
+  protected year: number;
+  protected color: string;
+  protected status?: boolean | undefined;
+  protected buyValue: number;
+  
+  constructor(
+    vehicle: IVehicle,
+  ) {
+    this.id = vehicle.id;
+    this.model = vehicle.model;
+    this.year = vehicle.year;
+    this.color = vehicle.color;
+    this.status = vehicle.status || false;
+    this.buyValue = vehicle.buyValue;
   }
 
   public getId() {
-    return this._id;
-  }
-
-  public setModel(model: string) {
-    this._model = model;
+    return this.id;
   }
 
   public getModel() {
-    return this._model;
-  }
-
-  public setYear(year: number) {
-    this._year = year;
+    return this.model;
   }
 
   public getYear() {
-    return this._year;
-  }
-
-  public setColor(color: string) {
-    this._color = color;
+    return this.year;
   }
 
   public getColor() {
-    return this._color;
-  }
-
-  public setStatus(status: boolean) {
-    this._status = status;
+    return this.color;
   }
 
   public getStatus() {
-    return this._status;
-  }
-
-  public setBuyValue(buyValue: number) {
-    this._buyValue = buyValue;
+    return this.status;
   }
 
   public getBuyValue() {
-    return this._buyValue;
+    return this.buyValue;
   }
 }
