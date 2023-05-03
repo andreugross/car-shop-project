@@ -18,4 +18,8 @@ export default abstract class AbstractODM<T> {
   public async find(): Promise<T[]> {
     return this.model.find();
   }
+
+  public async findCarById(id: string) {
+    return this.model.findById(id);
+  }
 }

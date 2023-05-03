@@ -22,4 +22,10 @@ export default class CarService {
     const arrayCar = allCars.map((car: ICar) => this.createDomainCar(car));
     return arrayCar;
   }
+
+  public async findById(id: string) {
+    const carODM = new CarODM();
+    const car = await carODM.findCarById(id);
+    return this.createDomainCar(car as unknown as ICar);
+  }
 }
