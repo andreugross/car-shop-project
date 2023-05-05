@@ -1,43 +1,33 @@
 import { expect } from 'chai';
 import { Model } from 'mongoose';
-import Sinon from 'sinon';
-import Motorcycles from '../../../src/Domains/Motorcycle';
-import IMotorcycles from '../../../src/Interfaces/IMotorcycle';
+import sinon from 'sinon';
+import { afterEach } from 'mocha';
 import MotorcyclesService from '../../../src/Services/MotorcycleService';
+import { motoOutput, newMotorcycle } from '../Mocks/MotorcycleMock';
 
-describe('Verifica atuação do CRUD na rota /motorcycles no arquivo SERVICE', function () {
-  const service = new MotorcyclesService();
-  const motoInput: IMotorcycles = {
-    model: 'Honda Cb 600f Hornet',
-    year: 2005,
-    color: 'Yellow',
-    status: true,
-    buyValue: 30.0,
-    category: 'Street',
-    engineCapacity: 600,
-  };
-  const motoOutput: Motorcycles = new Motorcycles({ id: '1', ...motoInput });
-
-  it('Verifica o funcionamento da função REGISTER', async function () {
-    Sinon.stub(Model, 'create').resolves(motoOutput);
-    const result = await service.create(motoInput);
+const service = new MotorcyclesService();
+describe('Verifica a funcionalidades das rotas no Service de motorcycle', function () {
+  afterEach(() => sinon.restore());
+  
+  it('Verifica se a função create retorna o objeto criado', async function () {
+    sinon.stub(Model, 'create').resolves(motoOutput);
+    const result = await service.create(newMotorcycle);
 
     expect(result).to.be.deep.equal(motoOutput);
-    Sinon.restore();
+  });
 
-    Sinon.stub(Model, 'create').resolves(null);
-    const resultError = await service.create(motoInput);
+  it('Verifica se a função create retorna null caso não haja objeto', async function () {
+    sinon.stub(Model, 'create').resolves(null);
+    const resultError = await service.create(newMotorcycle);
 
     expect(resultError).to.be.deep.equal(null);
-    Sinon.restore();
   });
 
   it('Verifica o funcionamento da função FINDALL', async function () {
-    Sinon.stub(Model, 'find').resolves([motoOutput]);
+    sinon.stub(Model, 'find').resolves([motoOutput]);
 
     const result = await service.findAllMotorcycles();
 
     expect(result).to.be.deep.equal([motoOutput]);
-    Sinon.restore();
   });
 });
