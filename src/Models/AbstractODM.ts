@@ -20,7 +20,7 @@ export default abstract class AbstractODM<T> {
     return this.model.find();
   }
 
-  public async findCarById(id: string) {
+  public async findById(id: string) {
     return this.model.findById(id);
   }
 

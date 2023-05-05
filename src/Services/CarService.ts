@@ -25,7 +25,7 @@ export default class CarService {
 
   public async findById(id: string) {
     const carODM = new CarODM();
-    const car = await carODM.findCarById(id);
+    const car = await carODM.findById(id);
     return this.createDomainCar(car as unknown as ICar);
   }
 
